@@ -57,7 +57,6 @@ function verifyTokenUser(req,res,next){
   const authToken = req.headers.authorization;
   if (authToken) {
     const token = authToken.split(" ")[1];
-console.log(token)
     if (token==undefined){
       req.query.isVisible=false;
 
