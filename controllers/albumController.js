@@ -241,3 +241,14 @@ module.exports.deleteOneImageCtrl = asyncHandler(async (req, res) => {
 });
 
 
+module.exports.GetAllAlbum=asyncHandler(async(req,res)=>{
+  //get all album
+  const AlbumList=await Album.find();
+//send the response to the client
+  if(!AlbumList){
+    return res.status(404).json({message:"no album founded"})
+  }
+  
+  return res.status(200).json(AlbumList)
+  
+})
