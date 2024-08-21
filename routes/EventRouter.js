@@ -6,7 +6,8 @@ const { verifyTokenAndAdmin, verifyTokenUser } = require("../middlewares/verifyT
 router
   .route("/")
   .post(PhotoUpload.single("image"), CreateEventCtrl)
-  .get(verifyTokenUser, GetAllEventCtrl);
+  .get( GetAllEventCtrl);
+  // .get(verifyTokenUser, GetAllEventCtrl);
 router.route("/has-special-event").get(verifyTokenUser, hasSpecialEvent);
 router.route("/get-image/:ImageName").get(GetOneImageCtrl)
 router.route("/update-photo/:id").put(PhotoUpload.single("image"),UpdatePhotoEventCtrl)

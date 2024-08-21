@@ -21,7 +21,12 @@ const {
 router
   .route("/")
   .post(verifyTokenAndAdmin, PhotoUpload.single("image"), createPostCtrl)
-  .get(verifyTokenUser,GetAllPostsCtrl);
+  .get( (req, res, next) => {
+    if (req.headers.authorization) {
+        return verifyTokenUser(req, res, next);
+    }
+    next();
+},GetAllPostsCtrl);
 router.route("/count").get(verifyTokenAndAdmin,GetPostsCountCtrl);
 router
   .route("/Update-photo/:id")

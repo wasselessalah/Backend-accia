@@ -121,7 +121,8 @@ module.exports.GetAllImageCtrl = asyncHandler(async (req, res) => {
     });
     files.forEach(file => {
         fileList.push({
-            url: path.join(cheminDossier, file), type: path.extname(file) === '.jpg' || path.extname(file) === '.png' ? 'image' : 'other'
+            url: path.join(cheminDossier, file), type: path.extname(file) === '.jpg' || path.extname(file) === '.png' ? 'image' : 'other',
+            name:file
         });
     });
     // send response to the client

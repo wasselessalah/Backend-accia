@@ -31,29 +31,30 @@ const userSchema = new mongoose.Schema(
     grade: {
       type: String,
       trim: true,
+      default:null 
     },
     jobPosition: {
       type: String,
-      trim: true,
+      trim: true,default:null 
     },
     ministry: {
       type: String,
-      trim: true,
+      trim: true,default:null 
     },
     structure: {
       type: String,
-      trim: true,
+      trim: true,default:null 
     },
     currentTask: {
       type: String,
-      trim: true,
+      trim: true,default:null 
     },
     birthDay: {
-      type: Date,
+      type: Date,default:null 
     },
     address: {
       type: String,
-      trim: true,
+      trim: true,default:null 
     },
     tel: {
       type: String,
@@ -63,7 +64,7 @@ const userSchema = new mongoose.Schema(
     tel2: {
       type: String,
       trim: true,
-      minlength: 8,
+      minlength: 8,default:'000000000' 
     },
     isAdmin: {
       type: Boolean,
@@ -75,7 +76,7 @@ const userSchema = new mongoose.Schema(
     },
     fax: {
       type: String,
-      trim: true,
+      trim: true,default:'000000000'
     },
     EventId: [{
       type: mongoose.Schema.Types.ObjectId,

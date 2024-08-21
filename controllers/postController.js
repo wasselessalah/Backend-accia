@@ -68,40 +68,46 @@ function getFileNameWithoutExtension(filename) {
  * @method GET
  * @method private (only admin or memeber)
 --------------------------------------------------------------------*/
+
 module.exports.GetAllPostsCtrl = asyncHandler(async (req, res) => {
-  // 1- Get All Post form Bd
+  // 1- Get All Post from DB
 
-  let POST_PER_PAGE = 9;
-  let { pageNumber, isVisible } = req.query;
+  let POST_PER_PAGE = 8;
+  let { pageNumber = 1, isVisible = 'true' } = req.query;
 
-  let posts;
-  if (pageNumber == 0) {
+  pageNumber = parseInt(pageNumber, 10);
+  isVisible = isVisible === 'true'; // Convert string 'true' to boolean true
+
+  if (pageNumber === 0) {
     pageNumber = 1;
     POST_PER_PAGE = 3;
   }
-  if (isVisible == false) {
-    posts = await Post.find({ isVisible })
+
+  let posts;
+  if (isVisible) {
+    posts = await Post.find({ isVisible: true })
       .sort({ createdAt: -1 })
       .skip((pageNumber - 1) * POST_PER_PAGE)
       .limit(POST_PER_PAGE)
-      .populate("user", ["-password"]);
+      .populate('user', ['-password']);
   } else {
     posts = await Post.find()
       .sort({ createdAt: -1 })
       .skip((pageNumber - 1) * POST_PER_PAGE)
       .limit(POST_PER_PAGE)
-      .populate("user", ["-password"]);
+      .populate('user', ['-password']);
   }
-  //add the image name for each url
+
+  // Add the image name for each URL
   posts.forEach((post) => {
-    const imageName = post.image.url.split("/").pop();
+    const imageName = post.image.url.split('/').pop();
     const imageNameWithoutExtension = getFileNameWithoutExtension(imageName);
 
     post.image.publicID = imageNameWithoutExtension;
   });
+
   res.status(200).json(posts);
 });
-
 /**-------------------------------------------------------------------
  * @desc  Get One Post
  * @route /api/admin/posts/:id

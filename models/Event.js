@@ -50,8 +50,13 @@ const EventSchema = new mongoose.Schema(
     isSpecial: {
       type: Boolean,
       required: true,
-    },
+    },  isExpired:{
+      type: Boolean,
+      default: false
+  
+    }
   },
+
   {
     timeseries: true,
     timestamps: true,

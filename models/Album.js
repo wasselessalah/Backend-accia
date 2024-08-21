@@ -9,6 +9,13 @@ const AlbumSchema = new mongoose.Schema(
       trim: true,
       // unique:true
     },
+    description: {
+      type: String,
+      default:'Album',
+    
+    
+      // unique:true
+    },
     path: {
       type: String,
       required: true,
@@ -23,7 +30,8 @@ const AlbumSchema = new mongoose.Schema(
 const Album = mongoose.model("Album", AlbumSchema);
 function ValidateCreateAlbum(obj) {
   const schema = joi.object({
-    nameFolder: joi.string().trim().min(2).required()
+    nameFolder: joi.string().trim().min(2).required(),
+    description: joi.string().max(50)
   });
   return schema.validate(obj);
 }
