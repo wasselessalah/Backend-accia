@@ -139,7 +139,8 @@ module.exports.GetOnePostsCtrl = asyncHandler(async (req, res) => {
  -------------------------------------------------------------*/
 module.exports.GetOneImageCtrl = asyncHandler(async (req, res) => {
   // Vérifier si le dossier existe sur le serveur
-  const cheminDossier = path.join(__dirname, "../public/Posts/");
+  // const cheminDossier = path.join(__dirname, "../public/Posts/");
+  const cheminDossier = path.join(__dirname, "../public/Posts");
   if (!fs.existsSync(cheminDossier)) {
     return res.status(404).json({ message: "Le dossier n'existe pas" });
   }
