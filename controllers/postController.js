@@ -55,6 +55,7 @@ module.exports.createPostCtrl = asyncHandler(async (req, res) => {
     isVisible: req.body.isVisible || false,
     user: req.user.id,
     "image.url": aftermovelogoPath,
+    
   });
   // Envoi de la réponse au client
   res.status(201).json({ post: post, message: "post created successfully" });
@@ -100,13 +101,13 @@ module.exports.GetAllPostsCtrl = asyncHandler(async (req, res) => {
 
   // Add the image name for each URL
   posts.forEach((post) => {
-    const imageName = post.image.url.split('/').pop();
+    const imageName = post.image.url.split('\\').pop();
     const imageNameWithoutExtension = getFileNameWithoutExtension(imageName);
-
+    
     post.image.publicID = imageNameWithoutExtension;
   });
-
   res.status(200).json(posts);
+
 });
 /**-------------------------------------------------------------------
  * @desc  Get One Post
