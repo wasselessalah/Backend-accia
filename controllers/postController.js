@@ -126,7 +126,8 @@ module.exports.GetOnePostsCtrl = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "post not found !" });
   }
   // 3- send the response to the client
-  const imageName = post.image.url.split("/").pop();
+  // const imageName = post.image.url.split("/").pop();
+  const imageName = post.image.url.split("\\").pop();
   const imageNameWithoutExtension = getFileNameWithoutExtension(imageName);
 
   post.image.publicID = imageNameWithoutExtension;
