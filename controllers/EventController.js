@@ -25,7 +25,7 @@ module.exports.CreateEventCtrl = asyncHandler(async (req, res) => {
         return res.status(200).json({ message: "event Exist in the database" })
     }
     const oldPath = req.file.path;
-    const folderName = req.body.folderName;
+    const folderName ='Event' ;
     const fileName = path.basename(oldPath);
     const uploadFolderPath = path.join(__dirname,"../public/",folderName)
     const newPath = path.join(uploadFolderPath, fileName);
@@ -101,7 +101,7 @@ module.exports.GetAllEventCtrl = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: "Aucun événement trouvé." });
   }
   events.forEach(event => {
-    const imageName = event.image.url.split('/').pop();
+    const imageName = event.image.url.split('\\').pop();
     const imageNameWithoutExtension = getFileNameWithoutExtension(imageName);
 
     event.image.publicID = imageNameWithoutExtension;
@@ -117,7 +117,7 @@ module.exports.GetAllEventCtrl = asyncHandler(async (req, res) => {
  -------------------------------------------------------------*/
  module.exports.GetOneImageCtrl = asyncHandler(async (req, res) => {
   // Vérifier si le dossier existe sur le serveur
-  const cheminDossier = path.join(__dirname, "../public/Event/");
+  const cheminDossier = path.join(__dirname, "../public/Event");
   if (!fs.existsSync(cheminDossier)) {
       return res.status(404).json({ message: "Le dossier n'existe pas" });
   }
@@ -164,8 +164,13 @@ module.exports.GetOneEventCtrl=asyncHandler(async(req,res)=>{
   //check if the document exist in the db
   const event_Db=await Event.findById(req.params.id);
   if(!event_Db){
+
     return res.status(404).json({message:"event don't exist"})
   }
+  const imageName = event_Db.image.url.split('\\').pop();
+    const imageNameWithoutExtension = getFileNameWithoutExtension(imageName);
+
+    event_Db.image.publicID = imageNameWithoutExtension;
   //send the response to the client
   return res.status(200).json(event_Db);
 })
